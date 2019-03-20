@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+//if return -1 score is bigger than 100
+
+#define SCORE_ERR -1
+
 int main(){
 	int numberOfsubject;
 	cin >>numberOfsubject;
@@ -10,11 +14,13 @@ int main(){
 	
 	for(i=0;i<numberOfsubject;i++){
 		cin>>scoreArray[i];
+		if(scoreArray[i]>100)
+			return SCORE_ERR;
 	}
 	
 	for(i=0;i<numberOfsubject-1;i++){
 		for(j=1;j<numberOfsubject;j++){
-			if(scoreArray[i]<scoreArray[j]){
+			if(scoreArray[i]>scoreArray[j]){
 				int temp=scoreArray[j];
 				scoreArray[j]=scoreArray[i];
 				scoreArray[i]=temp;
@@ -22,16 +28,22 @@ int main(){
 		}
 	}
 	
+	
 	int maxScore=scoreArray[numberOfsubject-1];
-	int sum=0;
+	
+
+	double sum=0.0;
 	for(i=0;i<numberOfsubject;i++){
-		scoreArray[i]=scoreArray[i]/(maxScore*100);
-		sum+=scoreArray[i];
+		sum+=((double)scoreArray[i]/(double)maxScore*100.0);
+		
 	}
+	double average=0.0;
 	
-	float average=(float)sum/(float)numberOfsubject;
 	
-	cout<<average;
+	average=(double)sum/(double)numberOfsubject;
+	cout.precision(5);
+	cout << average << endl;
+
 	
 	return 0;
 }
