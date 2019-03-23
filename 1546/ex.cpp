@@ -41,6 +41,7 @@ int main(){
 	
 	
 	average=(double)sum/(double)numberOfsubject;
+	cout.setf(ios::fixed);
 	cout.precision(5);
 	cout << average << endl;
 
