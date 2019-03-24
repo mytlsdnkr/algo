@@ -1,49 +1,42 @@
 #include <iostream>
+#define LEN 10001
 using namespace std;
 
 
 int FindSelfnumber(int num){
-        int sum=0;
-        sum+=num;
-
+        int sum=num;
+     
         while(1){
-                sum+=num%10;
-                if(num/10==0)
-                        break;
-                num=num/10;
+			if(num==0)
+                 break;
+			 sum+=num%10;
+             num=num/10;
+			 
+                
         }
 
         return sum;
 }
 
 int main(){
-        int num[10000];
+        bool num[LEN];
         int i=0;
-        int j=0;
 
-        for(i=0;i<10000;i++){
-                num[i]=i+1;
-        }
-        i=1;
+		int notSelfnumber;
 
 
-        while(1){
-                for(j=0;j<10000;j++){
-                        if(FindSelfnumber(i)==num[j]){
-                                num[j]=-1;
-                                break;
-                        }
-                
-                }
-                if(FindSelfnumber(i)>10000)
-                        break;
-                i++;
+        for(i=1;i<LEN;i++){
+			notSelfnumber=FindSelfnumber(i);
+			
+			if(notSelfnumber<=LEN)
+				num[notSelfnumber]=true;
+             
         }
 
-        for(i=0;i<10000;i++){
-                if(num[i]==-1)
-                        continue;
-                cout<<num[i]<<endl;
+        for(i=1;i<LEN;i++){
+			if(!num[i])
+				cout<<i<<endl;
+
         }
 
         return 0;
