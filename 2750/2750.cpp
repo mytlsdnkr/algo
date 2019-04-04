@@ -22,6 +22,8 @@ void insertSort(int numberArray[],int size){
         for(j=i-1;j>=0;j--){
             if(numberArray[j]>key){
                 numberArray[j+1]=numberArray[j];
+            }else{
+                break;
             }
         }
         numberArray[j+1]=key;
@@ -40,7 +42,6 @@ int main(){
     bubbleSort(numberArray,size);
 
 
-    cout<<endl;
 
     for(i=0;i<size;i++){
         cout<<numberArray[i]<<endl;
