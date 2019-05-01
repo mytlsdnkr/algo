@@ -14,22 +14,6 @@ void swapStruct(WORD *word1, WORD *word2){
     *word1=*word2;
     *word2=temp;
 }
-void swap(int *num, int *num1){
-    int temp;
-    temp=*num;
-    *num=*num1;
-    *num1=temp;
-
-
-}
-void swapWord(char word[], char word1[]){
-
-    char temp[50];
-    strcpy(temp,word);
-    strcpy(word,word1);
-    strcpy(word1,temp);
-
-}
 
 int partition(WORD list[], int left, int right){
     int pivot;
@@ -84,42 +68,58 @@ void quick_sort(WORD list[], int left, int right){
 }
 
 
-void Word_Sort(WORD array[],  int N){
-    int i=0;
-    int j=0;
-    int k=0;
-    int len;
-    bool lenFlag=false;
+void eraseSameWord(WORD array[],  int N){
+	int i=0;
+	int j=0;
+	int count=0;
+	WORD temp={"!!",0};
+	
+	for(i=0;i<N-1;i++){
+		for(j=i+1;j<N;j++){
+			if(!strcmp(array[i].name,array[j].name)){
+				memcpy(&array[j],&temp,sizeof(WORD));
+				count++;
 
+			}
+		}
+	}
+	
 
-    for(i=0;i<N-1;i++){
-        for(j=i+1;j<N;j++){
-            if(array[i].len!=array[j].len){
-                lenFlag=true;
-                break;
-            }else{
-                if(!strcmp(array[i].name,array[j].name)){
-                    continue;
-                }
-                    len=array[i].len;
-                    for(k=0;k<array[i].len;k++){
-                        if(array[i].name[k]>array[j].name[k]){
-                            swapStruct(&array[i],&array[j]);
-                        }
-                    }
-                }
-            }
-            if(lenFlag){
-                lenFlag=false;
-                continue;
-            }
+			
+}
 
+void sortWord(WORD array[],int N){
+	
+	int i,j,k,len;
+	int indexMin;
+	for(i=0;i<N-1;i++){
+		if(!strcmp(array[i].name,"!!"))
+			continue;
+		indexMin=i;
+		for(j=i+1;j<N;j++){
+			if(!strcmp(array[j].name,"!!") || strlen(array[i].name)!=strlen(array[j].name))
+				continue;
+			len=strlen(array[i].name);
+			for(k=0;k<len;k++){
+				if(array[j].name[k]<array[indexMin].name[k]){
+					indexMin=j;
+				}
+				
+			}
+			
+			
+		}
+		swapStruct(&array[i],&array[indexMin]);
+		
+	}
+	
 
-        }
-    }
+	
+}
+
 
 int main(){
-    int N;
+    int N,len;
     cin>>N;
 
     WORD *array=new WORD[N];
@@ -132,17 +132,18 @@ int main(){
     }
 
     quick_sort(array,0,N-1);
-    Word_Sort(array,N);
+	eraseSameWord(array,N);
+   // sortWord(array,N);
 
 
     for(i=0;i<N;i++){
-        if(!strcmp(array[i].name,array[i+1].name))
-            continue;
-
-        cout<<"길이:"<<array[i].len<<endl;
-        cout<<"단어:"<<array[i].name<<endl;
+		//if(!strcmp(array[i].name,"!!"))
+			//continue;
+		
+        cout<<"word:"<<array[i].name<<endl;
 
     }
+	
 
 
     delete[] array;
@@ -151,4 +152,3 @@ int main(){
 
 
 }
-
