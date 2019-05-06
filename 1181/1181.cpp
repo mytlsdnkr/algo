@@ -14,22 +14,6 @@ void swapStruct(WORD *word1, WORD *word2){
     *word1=*word2;
     *word2=temp;
 }
-void swap(int *num, int *num1){
-    int temp;
-    temp=*num;
-    *num=*num1;
-    *num1=temp;
-
-
-}
-void swapWord(char word[], char word1[]){
-
-    char temp[50];
-    strcpy(temp,word);
-    strcpy(word,word1);
-    strcpy(word1,temp);
-
-}
 
 int partition(WORD list[], int left, int right){
     int pivot;
