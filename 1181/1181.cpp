@@ -97,12 +97,13 @@ void sortWord(WORD array[],int N){
 			continue;
 		indexMin=i;
 		for(j=i+1;j<N;j++){
-			if(!strcmp(array[j].name,"!!") || strlen(array[i].name)!=strlen(array[j].name))
+			if(!strcmp(array[j].name,"!!") || (strlen(array[i].name)!=strlen(array[j].name)))
 				continue;
 			len=strlen(array[i].name);
 			for(k=0;k<len;k++){
 				if(array[j].name[k]<array[indexMin].name[k]){
 					indexMin=j;
+                    break;
 				}
 				
 			}
