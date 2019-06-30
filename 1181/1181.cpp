@@ -103,13 +103,17 @@ void sortWord(WORD array[],int N){
 			for(k=0;k<len;k++){
 				if(array[j].name[k]<array[indexMin].name[k]){
 					indexMin=j;
+					break;
 				}
 				
 			}
 			
 			
 		}
+		if(i!=indexMin){
+			
 		swapStruct(&array[i],&array[indexMin]);
+		}
 		
 	}
 	
@@ -133,12 +137,13 @@ int main(){
 
     quick_sort(array,0,N-1);
 	eraseSameWord(array,N);
-   // sortWord(array,N);
+    sortWord(array,N);
+	sortWord(array,N);
 
 
     for(i=0;i<N;i++){
-		//if(!strcmp(array[i].name,"!!"))
-			//continue;
+		if(!strcmp(array[i].name,"!!"))
+			continue;
 		
         cout<<"word:"<<array[i].name<<endl;
 
