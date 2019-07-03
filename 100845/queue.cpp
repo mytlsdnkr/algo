@@ -1,103 +1,77 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#define SIZE 128
+#define SIZE 5
+
+typedef struct queue{
+    int arr[SIZE];
+    int rear;
+    int front;
+    int size;
 
 
-int pop(int *queue){
-    int i=0;
-    int temp=0;
-    if(queue[0]==0)
-        return -1;
-    else{
-        temp=queue[0];
-        for(i=1;i<SIZE-1;i++){
-                queue[i-1]=queue[i];
-                //queue[i]=queue[i+1];
-    }
-    return temp;
+}queue;
+
+void initqueue(queue *q){
+    q->rear=0;
+    q->front=0;
+    q->size=0;
+    
 }
-}
 
 
-void push(int *queue,int value){
-    int i=0;
-    bool full=false;
-    for(i=0;i<SIZE;i++){
-        if(queue[i]==0){
-            queue[i]=value;
-            full=false;
-            return ;
-        }else{
-            full=true;
-        }
+void push(queue *q,int value){
+    if(q->front==(q->rear+1)%SIZE)
+        return ;
         
+    else{
+        q->rear=(q->rear)%SIZE;
+        q->arr[q->rear++]=value;
+        q->size++;
     }
-
-    if(full){
-        pop(queue);
-        /*for(i=1;i<SIZE;i++){
-            queue[i-1]=queue[i];
-        }*/
-        queue[i]=value;
-
-    }else{
-        return;
-    }
-
-}
-int size(int *queue){
-    int count=0,i=0;
-    bool full=false;
-
-    for(i=0;i<SIZE;i++){
-        if(queue[i]!=0){
-            count++;
-            continue;
-        }else{
-            full=false;
-            return count;
-        }
-    }
-    full=true;
-    if(full)
-        return SIZE;
-
-    return 0;
 
 
 }
-
-bool empty(int *queue){
-    if(queue[0]==0)
+bool empty(queue *q){
+    if(q->front==q->rear)
         return true;
     else{
         return false;
     }
 }
-int front(int *queue){
-    if(empty(queue))
+int pop(queue *q){
+    int temp;
+    if(empty(q))
         return -1;
     else{
-        return queue[0];
-    }
-}
+        q->front=(q->front)%SIZE;
+        temp=q->arr[q->front++];
+        q->size--;
 
-int back(int *queue){
-    int i;
-    if(empty(queue))
+    }
+    return temp;
+
+}
+int front(queue *q){
+    if(empty(q))
         return -1;
 
-    for(i=0;i<SIZE;i++){
-        if(queue[i]==0){
-            return queue[i-1];
-        }
-    }
+    return q->arr[q->front];
+
+    
+}
+
+int back(queue *q){
+    if(empty(q))
+        return -1;
+    return q->arr[q->rear-1];
+
 }
 int main(){
+    queue q;
+    initqueue(&q);
     int numberOfcommands;
-    char action[7];
-    int queue[SIZE]={0,};
+    char action[6];
     int value=0;
     int i=0;
 
@@ -111,20 +85,18 @@ int main(){
             cin>>value;
             if(value>100000 || value < 1)
                 return 0;
-            push(queue,value);
+            push(&q,value);
         }else if(!strcmp(action,"pop")){
-           
-            cout<<pop(queue)<<endl;
+            cout<<pop(&q)<<endl;
         }else if(!strcmp(action,"size")){
-            cout<<size(queue)<<endl;
+            cout<<q.size<<endl;
         }else if(!strcmp(action,"front")){
-            cout<<front(queue)<<endl;
+            cout<<front(&q)<<endl;
         }else if(!strcmp(action,"back")){
-            cout<<back(queue)<<endl;
+            cout<<back(&q)<<endl;
         }else if(!strcmp(action,"empty")){
-            cout<<empty(queue)<<endl;
+            cout<<empty(&q)<<endl;
         }
-
     }
 
 
