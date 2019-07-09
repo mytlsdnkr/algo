@@ -13,6 +13,6 @@ int main(){
         }
     }
     cout<<max<<endl;
-    cout<<i-1<<endl;
+    cout<<index+1<<endl;
 
 }
