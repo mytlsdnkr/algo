@@ -1,78 +1,80 @@
 #include <iostream>
 #include <vector>
-
+#include <string>
+#include <algorithm>
 using namespace std;
 
-
-int check(vector<string> board){
-	int count=1;
+int check(vector<string> &input,int imax, int jmax){
+	int len=input.size();
 	int i=0,j=0;
-	int len=board.size();
-	int temp=0;
-// row 
+	int answer=1;
+
+
+
 	for(i=0;i<len;i++){
-		for(j=1;j<len;j++){
-			if(board[i][j]==board[i][j-1]){
-				count++;
-			}else{
-				count=1;
+		int count=1;
+		for(j=0;j<len;j++){
+			if(j+1<len){
+				if(input[i][j]==input[i][j+1]){
+					count+=1;
+				}else{
+					count=1;
+				}
+				if(answer<count)
+					answer=count;
 			}
-			if(temp<count)
-				temp=count;
 		}
-	count=1;
+		count=1;
+		for(j=0;j<len;j++){
 
-	for(j=1;j<len;j++){
-		if(board[j][i]==board[j-1][i]){
-			count++;
-		}else{
-			count=1;
+			if(j+1<len){
+				if(input[j][i]==input[j+1][i]){
+					count+=1;
+				}else{
+					count=1;
+				}
+				if(answer<count)
+					answer=count;
+			}
 		}
-
-		if(temp<count)
-			temp=count;
 	}
-	}
-
-
-	return temp;
-
+	return answer;
 }
+
 int main(){
 	int N;
 	cin>>N;
-	vector<string> board(N);
-
-	int i=0,j=0;
+	int i=0;
+	vector<string> input(N);
 	for(i=0;i<N;i++){
-		cin>>board[i];
+		cin>>input[i];
 	}
 
+	int j=0;
 	int answer=0;
-	int count=0;
 	int temp;
-
 	for(i=0;i<N;i++){
 		for(j=0;j<N;j++){
 			if(j+1<N){
-			swap(board[i][j],board[i][j+1]);
-			temp=check(board);
-			if(temp>answer){
-				answer=temp;
-			}
-			swap(board[i][j],board[i][j+1]);
-		}
-			if(i+1<N){
-				swap(board[i][j],board[i+1][j]);
-				temp=check(board);
-				if(temp>answer){
+				swap(input[i][j],input[i][j+1]);
+				temp=check(input,i,j);
+				if(answer<temp){
 					answer=temp;
 				}
-				swap(board[i][j],board[i+1][j]);
-		}
+				swap(input[i][j],input[i][j+1]);
+			}
+
+			if(i+1<N){
+				swap(input[i][j],input[i+1][j]);
+				temp=check(input,i,j);
+				if(answer<temp){
+					answer=temp;
+				}
+				swap(input[i][j],input[i+1][j]);
+			}
 		}
 	}
 
 	cout<<answer<<endl;
-	return 0;
+
 }

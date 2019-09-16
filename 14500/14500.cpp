@@ -7,11 +7,14 @@ int Bar(vector<vector<int>> &arr,int N, int M){
 	int i=0,j=0;
 	int temp=0;
 	int ans=0;
+	int k=0;
 	for(i=0;i<N;i++){
 		for(j=0;j<M;j++){
 			if(j+3>M)
 				break;
-			temp+=arr[i][j];
+			for(k=0;k<4;k++){
+				temp+=arr[i][j+k];
+			}
 		}
 		if(ans<temp)
 			ans=temp;
@@ -23,7 +26,9 @@ int Bar(vector<vector<int>> &arr,int N, int M){
 		for(j=0;j<N;j++){
 			if(j+3>N)
 				break;
-			temp+=arr[j][i];
+			for(k=0;k<4;k++){
+				temp+=arr[j+k][i];
+			}
 		}
 		if(ans<temp)
 			ans=temp;
@@ -32,7 +37,7 @@ int Bar(vector<vector<int>> &arr,int N, int M){
 	return ans;
 
 }
-			
+
 
 
 
@@ -40,7 +45,7 @@ int Bar(vector<vector<int>> &arr,int N, int M){
 int main(){
 	int N,M;
 	cin>>N>>M;
-	
+
 	vector<vector<int>> arr;
 	arr.assign(N,vector<int>(M,0));
 	int i=0;
