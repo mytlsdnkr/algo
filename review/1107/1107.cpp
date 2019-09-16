@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+bool button[10];
+int possible(int num){
+	if(num==0){
+		if(button[0])
+			return 0;
+		else
+			return 1;
+	}
+
+	int len=0;
+
+	while(num>0){
+		if(button[num%10])
+			return 0;
+
+		num/=10;
+		len++;
+	}
+
+	return len;
+}
+
+int main(){
+	int target;
+	cin>>target;
+
+	int brokenNum;
+	cin>>brokenNum;
+	int i=0;
+	int tempNum;
+	for(i=0;i<brokenNum;i++){
+		cin>>tempNum;
+		button[tempNum]=true;
+	}
+
+	int ans=target-100;
+	if(ans<0){
+		ans=-ans;
+	}
+
+	for(i=0;i<=1000000;i++){
+		int temp=i;
+		int len=possible(temp);
+		if(len>0){
+			int press=temp-target;
+			if(press<0)
+				press=-press;
+			if(ans>press+len)
+				ans=press+len;
+		}
+
+
+
+
+		}
+
+	cout<<ans<<endl;
+
+
+
+}
+
+
