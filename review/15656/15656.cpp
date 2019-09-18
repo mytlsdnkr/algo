@@ -8,15 +8,16 @@ int num[10];
 void recursive(int index,int N, int M){
 	int i=0;
 	if(index==M){
-		for(i=0;i<N;i++){
+		for(i=0;i<M;i++){
 			cout<<arr[i]<<" ";
 		}
 		cout<<"\n";
 		return ;
 	}
+	int k=0;
 
-	for(i=0;i<N;i++){
-		arr[index]=num[i];
+	for(k=0;k<N;k++){
+		arr[index]=num[k];
 		recursive(index+1,N,M);
 	}
 }
