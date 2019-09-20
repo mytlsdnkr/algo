@@ -1,31 +1,20 @@
 #include <iostream>
 using namespace std;
-int count=0;
-void recursive(int sum,int start,int target){
+int recursive(int sum,int target){
 	if(sum>target){
-		sum=0;
-		return ;
+		return 0;
 	}
 	if(sum==target){
-		count++;
-		sum=0;
-		return ;
+		return 1;
+	}
+	int i;
+	int count=0;
+
+	for(i=1;i<=3;i++){
+		count+=recursive(sum+i,target);
 	}
 
-
-	while(1){
-		if(sum<target){
-			sum+=start;
-			recursive(sum,start,target);
-		}
-		start++;
-		if(start==4)
-			start=1;
-	}
-
-		
-
-
+	return count;
 }
 int main(){
 
@@ -36,9 +25,7 @@ int main(){
 		int temp;
 		cin>>temp;
 		int sum=0;
-		recursive(sum,1,temp);
-		cout<<count<<"\n";
-		count=0;
+		cout<<recursive(sum,temp)<<"\n";
 	}
 
 }
