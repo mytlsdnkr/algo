@@ -26,6 +26,7 @@ int main(){
 		g[temp1].push_back(temp);
 			
 	}
+	M*=2;
 
 	for(int i=0;i<M;i++){
 		for(int j=0; j<M;j++){
